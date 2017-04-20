@@ -24,87 +24,87 @@ pp = pprint.PrettyPrinter(indent=4)
 
 #Extract features of a given word
 def get_features(document,candidate,candidate_list, isKeyword):
-	features = {} 
-	features['length'] = len(candidate.split(' '))
-	features['part_of_speech'] = ' '.join([pos for word,pos in nltk.pos_tag(nltk.word_tokenize(candidate))])
+    features = {} 
+    features['length'] = len(candidate.split(' '))
+    features['part_of_speech'] = ' '.join([pos for word,pos in nltk.pos_tag(nltk.word_tokenize(candidate))])
 
-	position_list = [ m.start()/float(len(document)) for m in re.finditer(re.escape(candidate),document,flags=re.IGNORECASE)] 
+    position_list = [ m.start()/float(len(document)) for m in re.finditer(re.escape(candidate),document,flags=re.IGNORECASE)] 
 
-	if len(position_list):
-		for i in range(0,len(position_list)):
-			features[str(i) + 'th occrrence'] = position_list[i]
+    if len(position_list):
+        for i in range(0,len(position_list)):
+            features[str(i) + 'th occrrence'] = position_list[i]
 
-	N = len(document)
-	#Line approximation
+    N = len(document)
+    #Line approximation
 
-	if len(position_list):
-		y = 0
-		for pos in position_list:
-				#x = document.index(candidate)
-				x = pos*N
-				if x >= float(N)/2:
-					y += 2/float(N) * x - 1
-				else : 
-					y += -2/float(N) * x + 1
+    if len(position_list):
+        y = 0
+        for pos in position_list:
+                #x = document.index(candidate)
+                x = pos*N
+                if x >= float(N)/2:
+                    y += 2/float(N) * x - 1
+                else : 
+                    y += -2/float(N) * x + 1
 
-		y /= len(position_list)
-	else:
-		x = 0
-		y = 0
-
-
-	features['line_position'] = y
-
-	#Feature: Try the same approximation with parabola
-	if len(position_list):
-		y = 0
-		for pos in position_list:
-				x = pos*N
-				y += ((x - float(N)/2)**2 )/ ((float(N)**2) / 4)
-		y /= len(position_list)
-	else:
-		x = 0
-		y = 0
-
-	features['parabolic_position'] = y
+        y /= len(position_list)
+    else:
+        x = 0
+        y = 0
 
 
-	#Feature: Standard deviation
-	if len(position_list):
-		avg_position = sum([pos*float(len(document)) for pos in position_list])/float(len(position_list))
-		ss = 0.0
-		for p in position_list:
-			ss += (p*float(len(document))  - avg_position)**2
-		ss /= len(position_list)
-		ss = ss**0.5
-		features['Standard deviation'] = ss/float(len(document))
+    features['line_position'] = y
+
+    #Feature: Try the same approximation with parabola
+    if len(position_list):
+        y = 0
+        for pos in position_list:
+                x = pos*N
+                y += ((x - float(N)/2)**2 )/ ((float(N)**2) / 4)
+        y /= len(position_list)
+    else:
+        x = 0
+        y = 0
+
+    features['parabolic_position'] = y
 
 
-	#Feature: Text Frequency
-	features['frequency'] = len(position_list)/ float(len(set(candidate_list))) #check
+    #Feature: Standard deviation
+    if len(position_list):
+        avg_position = sum([pos*float(len(document)) for pos in position_list])/float(len(position_list))
+        ss = 0.0
+        for p in position_list:
+            ss += (p*float(len(document))  - avg_position)**2
+        ss /= len(position_list)
+        ss = ss**0.5
+        features['Standard deviation'] = ss/float(len(document))
 
 
-	pp.pprint(features)
-	print 'for the top : ' + str(isKeyword)
-	return features
+    #Feature: Text Frequency
+    features['frequency'] = len(position_list)/ float(len(set(candidate_list))) #check
+
+
+    pp.pprint(features)
+    print 'for the top : ' + str(isKeyword)
+    return features
 
 
 # Determine Precision, Recall & F-Measure
 def accuracy_measure(classifier,cross_valid_set):
-	refsets = collections.defaultdict(set)
-	testsets = collections.defaultdict(set)
+    refsets = collections.defaultdict(set)
+    testsets = collections.defaultdict(set)
 
-	for i, (feats, label) in enumerate(cross_valid_set):
-	    refsets[label].add(i)
-	    observed = classifier.classify(feats)
-	    testsets[observed].add(i)
+    for i, (feats, label) in enumerate(cross_valid_set):
+        refsets[label].add(i)
+        observed = classifier.classify(feats)
+        testsets[observed].add(i)
 
-	print 'pos Precision:', precision(refsets[1], testsets[1])
-	print 'pos Recall:', recall(refsets[1], testsets[1])
-	print 'pos F-measure:', f_measure(refsets[1], testsets[1])
-	print 'neg Precision:', precision(refsets[0], testsets[0])
-	print 'neg Recall:', recall(refsets[0], testsets[0])
-	print 'neg F-measure:', f_measure(refsets[0], testsets[0])
+    print 'pos Precision:', precision(refsets[1], testsets[1])
+    print 'pos Recall:', recall(refsets[1], testsets[1])
+    print 'pos F-measure:', f_measure(refsets[1], testsets[1])
+    print 'neg Precision:', precision(refsets[0], testsets[0])
+    print 'neg Recall:', recall(refsets[0], testsets[0])
+    print 'neg F-measure:', f_measure(refsets[0], testsets[0])
 
 
 
@@ -118,32 +118,32 @@ feature_list = []
 
 start_time = time.time()
 for doc in os.listdir(doc_path):
-	doc_name = doc.split('.')[0]
+    doc_name = doc.split('.')[0]
 
-	if doc.endswith('txt'):
-		document = open(doc_path + doc,"r").read()
-		document = unicode(document + doc,errors='replace')
+    if doc.endswith('txt'):
+        document = open(doc_path + doc,"r").read()
+        document = unicode(document + doc,errors='replace')
 
-		#Get List of candidates
-		candidates = extract_candidate_keywords(document)
+        #Get List of candidates
+        candidates = extract_candidate_keywords(document)
 
-		# #Initialize data and target lists
-		print 'Now going to ',doc
-		keyword_list = []
-		for team in os.listdir(team_path):
+        # #Initialize data and target lists
+        print 'Now going to ',doc
+        keyword_list = []
+        for team in os.listdir(team_path):
 
-			if team.startswith('team'):
+            if team.startswith('team'):
 
-				keywords = open(team_path + team + '/' + doc_name + '.key',"r").read()
-				keywords = unicode(keywords + team + '/' + doc_name + '.key',errors='replace')
+                keywords = open(team_path + team + '/' + doc_name + '.key',"r").read()
+                keywords = unicode(keywords + team + '/' + doc_name + '.key',errors='replace')
 
-				#Take list of Keywords 
-				keyword_list.extend([line.split(':')[1].lower().strip() for line in keywords.splitlines() if ':' in line ])				
+                #Take list of Keywords 
+                keyword_list.extend([line.split(':')[1].lower().strip() for line in keywords.splitlines() if ':' in line ])             
 
-		feature_list.extend([ (get_features(document,key,candidates,1),1) for key in set(keyword_list)])
-		feature_list.extend([ (get_features(document,key,candidates,0),0) for key in candidates if key not in set(keyword_list)])
+        feature_list.extend([ (get_features(document,key,candidates,1),1) for key in set(keyword_list)])
+        feature_list.extend([ (get_features(document,key,candidates,0),0) for key in candidates if key not in set(keyword_list)])
 
-		print len(feature_list)
+        print len(feature_list)
 
 end_time = time.time()
 
