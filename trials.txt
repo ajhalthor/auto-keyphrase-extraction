@@ -1,0 +1,503 @@
+1. With :
+ 	'Standard deviation'
+ 	'frequency'
+  'length'
+  'line_position'
+  'parabolic_position'
+  'part_of_speech'
+  'nth position_list'
+
+TRIAL 1: 
+pos Precision: 0.798122065728
+pos Recall: 0.809523809524
+pos F-measure: 0.80378250591
+neg Precision: 0.815668202765
+neg Recall: 0.804545454545
+neg F-measure: 0.810068649886  
+
+TRIAL 2:
+pos Precision: 0.79512195122
+pos Recall: 0.77619047619
+pos F-measure: 0.785542168675
+neg Precision: 0.791111111111
+neg Recall: 0.809090909091
+neg F-measure: 0.8
+
+TRIAL 3: 
+pos Precision: 0.760765550239
+pos Recall: 0.757142857143
+pos F-measure: 0.758949880668
+neg Precision: 0.769230769231
+neg Recall: 0.772727272727
+neg F-measure: 0.770975056689
+
+TRIAL 4:
+pos Precision: 0.754716981132
+pos Recall: 0.761904761905
+pos F-measure: 0.758293838863
+neg Precision: 0.770642201835
+neg Recall: 0.763636363636
+neg F-measure: 0.767123287671
+
+TRIAL 5:
+pos Precision: 0.777777777778
+pos Recall: 0.766666666667
+pos F-measure: 0.772182254197
+neg Precision: 0.780269058296
+neg Recall: 0.790909090909
+neg F-measure: 0.785553047404
+
+-----------------------------------------------------------------------
+2. With : 
+ 	'Standard deviation'
+ 	'frequency'
+  'length'
+  'line_position'
+  'parabolic_position'
+  'part_of_speech'
+
+without : 
+	nth position_list
+
+TRIAL 1:
+pos Precision: 0.80612244898
+pos Recall: 0.752380952381
+pos F-measure: 0.778325123153
+neg Precision: 0.777777777778
+neg Recall: 0.827272727273
+neg F-measure: 0.801762114537
+
+TRIAL 2:
+pos Precision: 0.769633507853
+pos Recall: 0.7
+pos F-measure: 0.733167082294
+neg Precision: 0.73640167364
+neg Recall: 0.8
+neg F-measure: 0.76688453159
+
+TRIAL 3:
+pos Precision: 0.791208791209
+pos Recall: 0.685714285714
+pos F-measure: 0.734693877551
+neg Precision: 0.733870967742
+neg Recall: 0.827272727273
+neg F-measure: 0.777777777778
+
+TRIAL 4:
+pos Precision: 0.79679144385
+pos Recall: 0.709523809524
+pos F-measure: 0.750629722922
+neg Precision: 0.748971193416
+neg Recall: 0.827272727273
+neg F-measure: 0.786177105832
+
+TRIAL 5:
+pos Precision: 0.756218905473
+pos Recall: 0.72380952381
+pos F-measure: 0.739659367397
+neg Precision: 0.74672489083
+neg Recall: 0.777272727273
+neg F-measure: 0.761692650334
+
+-----------------------------------------------------------------------
+
+3.With :
+ 	'Standard deviation'
+ 	'frequency'
+  'length'
+  'parabolic_position'
+  'part_of_speech'
+  'nth position_list'
+without :
+	'line_position'
+
+TRIAL 1:
+pos Precision: 0.764705882353
+pos Recall: 0.804761904762
+pos F-measure: 0.784222737819
+neg Precision: 0.803827751196
+neg Recall: 0.763636363636
+neg F-measure: 0.783216783217
+Time : 84.4141249657 seconds!
+
+TRIAL 2:
+pos Precision: 0.771844660194
+pos Recall: 0.757142857143
+pos F-measure: 0.764423076923
+neg Precision: 0.772321428571
+neg Recall: 0.786363636364
+neg F-measure: 0.779279279279
+Time : 90.0516619682 seconds!
+
+TRIAL 3:
+pos Precision: 0.724299065421
+pos Recall: 0.738095238095
+pos F-measure: 0.731132075472
+neg Precision: 0.74537037037
+neg Recall: 0.731818181818
+neg F-measure: 0.738532110092
+Time : 89.6798610687 seconds!
+
+TRIAL 4:
+pos Precision: 0.793427230047
+pos Recall: 0.804761904762
+pos F-measure: 0.799054373522
+neg Precision: 0.811059907834
+neg Recall: 0.8
+neg F-measure: 0.805491990847
+Time : 84.3129620552 seconds!
+
+TRIAL 5:
+pos Precision: 0.740088105727
+pos Recall: 0.8
+pos F-measure: 0.768878718535
+neg Precision: 0.793103448276
+neg Recall: 0.731818181818
+neg F-measure: 0.761229314421
+Time : 85.9643900394 seconds!
+
+TRIAL 6:
+pos Precision: 0.751131221719
+pos Recall: 0.790476190476
+pos F-measure: 0.77030162413
+neg Precision: 0.789473684211
+neg Recall: 0.75
+neg F-measure: 0.769230769231
+
+TRIAL 7 :
+pos Precision: 0.739726027397
+pos Recall: 0.771428571429
+pos F-measure: 0.755244755245
+neg Precision: 0.772511848341
+neg Recall: 0.740909090909
+neg F-measure: 0.756380510441
+Time  : 83.2054169178 seconds!
+
+Thoughts : This line_position may not be as important as the others. But, I may just see like a 0.--- increase in accuracy. I'll have to see if it's worth with given that it takes some time (from parabolic_position trial)
+
+
+-----------------------------------------------------------------------
+4.With :
+ 	'Standard deviation'
+ 	'frequency'
+  'length'
+  'line_position'
+  'part_of_speech'
+  'nth position_list'
+without :
+	'parabolic_position'
+
+TRIAL 1:
+pos Precision: 0.725961538462
+pos Recall: 0.719047619048
+pos F-measure: 0.722488038278
+neg Precision: 0.734234234234
+neg Recall: 0.740909090909
+neg F-measure: 0.737556561086
+Time : 100.079853058 seconds! [means line_position above took quite a long time]
+
+
+TRIAL 2:
+pos Precision: 0.73631840796
+pos Recall: 0.704761904762
+pos F-measure: 0.720194647202
+neg Precision: 0.729257641921
+neg Recall: 0.759090909091
+neg F-measure: 0.743875278396
+Time : 100.32802701 seconds!
+
+TRIAL 3: <this trial may be bogus. Time taken is too less>
+pos Precision: 0.75
+pos Recall: 0.814285714286
+pos F-measure: 0.780821917808
+neg Precision: 0.806930693069
+neg Recall: 0.740909090909
+neg F-measure: 0.772511848341
+Time :83.3214030266 seconds!
+
+TRIAL 4:
+pos Precision: 0.791262135922
+pos Recall: 0.77619047619
+pos F-measure: 0.783653846154
+neg Precision: 0.790178571429
+neg Recall: 0.804545454545
+neg F-measure: 0.797297297297
+Time :94.6627857685 seconds!
+
+TRIAL 5 : 
+pos Precision: 0.729257641921
+pos Recall: 0.795238095238
+pos F-measure: 0.760820045558
+neg Precision: 0.786069651741
+neg Recall: 0.718181818182
+neg F-measure: 0.750593824228
+Time : 82.099255085 seconds! 
+
+TRIAL 6 :
+pos Precision: 0.753768844221
+pos Recall: 0.714285714286
+pos F-measure: 0.733496332518
+neg Precision: 0.74025974026
+neg Recall: 0.777272727273
+neg F-measure: 0.758314855876
+Time : 87.2887740135 seconds!
+
+Thoughts : Parabolic approximation is very important feature. Without it, the overall accuracy goes down. I think I'll have to conduct another set of tests for this case. The time taken fluctuated too much. So, I can't tell if the line_position before took too much time. 
+
+-----------------------------------------------------------------------
+
+5.1. With :
+ 	'Standard deviation'
+ 	'frequency'
+  'length'
+  'line_position'
+  'parabolic_position'
+  'nth position_list'
+
+without :
+	 'part_of_speech'
+
+TRIAL 1:
+pos Precision: 0.7
+pos Recall: 0.733333333333
+pos F-measure: 0.716279069767
+neg Precision: 0.733333333333
+neg Recall: 0.7
+neg F-measure: 0.716279069767
+Time : 
+
+TRIAL 2:
+pos Precision: 0.709956709957
+pos Recall: 0.780952380952
+pos F-measure: 0.743764172336
+neg Precision: 0.768844221106
+neg Recall: 0.695454545455
+neg F-measure: 0.73031026253
+Time : 73.8322761059 seconds!
+
+TRIAL 3:
+pos Precision: 0.702325581395
+pos Recall: 0.719047619048
+pos F-measure: 0.710588235294
+neg Precision: 0.725581395349
+neg Recall: 0.709090909091
+neg F-measure: 0.71724137931
+Time : 66.9048998356 seconds!
+
+TRIAL 4 :
+pos Precision: 0.745535714286
+pos Recall: 0.795238095238
+pos F-measure: 0.769585253456
+neg Precision: 0.791262135922
+neg Recall: 0.740909090909
+neg F-measure: 0.765258215962
+Time : 69.4745140076 seconds!
+
+TRIAL 5 : 
+pos Precision: 0.681222707424
+pos Recall: 0.742857142857
+pos F-measure: 0.710706150342
+neg Precision: 0.731343283582
+neg Recall: 0.668181818182
+neg F-measure: 0.698337292162
+Time : 
+
+TRIAL 6:
+pos Precision: 0.688073394495
+pos Recall: 0.714285714286
+pos F-measure: 0.700934579439
+neg Precision: 0.716981132075
+neg Recall: 0.690909090909
+neg F-measure: 0.703703703704
+Time : 71.1378500462 seconds!
+
+TRIAL 7:
+pos Precision: 0.666666666667
+pos Recall: 0.742857142857
+pos F-measure: 0.702702702703
+neg Precision: 0.724489795918
+neg Recall: 0.645454545455
+neg F-measure: 0.682692307692
+Time : 70.3004469872 seconds!
+
+Thoughts : Part of speech is VERY IMPORTANT! It increases accuracy significantly. Here, the overall is like 70-71% while with it is 77-80%
+
+-----------------------------------------------------------------------
+
+6. With :
+ 	'frequency'
+  'length'
+  'line_position'
+  'parabolic_position'
+  'part_of_speech'
+  'nth position_list'
+
+without :
+	Standard Deviation
+
+TRIAL 1 : 
+pos Precision: 0.736111111111
+pos Recall: 0.757142857143
+pos F-measure: 0.746478873239
+neg Precision: 0.761682242991
+neg Recall: 0.740909090909
+neg F-measure: 0.751152073733
+Time : 99.9541289806 seconds!
+
+TRIAL 2:
+pos Precision: 0.773399014778
+pos Recall: 0.747619047619
+pos F-measure: 0.760290556901
+neg Precision: 0.766519823789
+neg Recall: 0.790909090909
+neg F-measure: 0.778523489933
+Time : 100.912440777 seconds!
+
+TRIAL 3:
+pos Precision: 0.752525252525
+pos Recall: 0.709523809524
+pos F-measure: 0.730392156863
+neg Precision: 0.737068965517
+neg Recall: 0.777272727273
+neg F-measure: 0.756637168142
+Time :93.630491972 seconds!
+
+TRIAL 4:
+pos Precision: 0.74672489083
+pos Recall: 0.814285714286
+pos F-measure: 0.779043280182
+neg Precision: 0.805970149254
+neg Recall: 0.736363636364
+neg F-measure: 0.769596199525
+Time : 98.0889949799 seconds!
+
+TRIAL 5: <I executed this alone. Thats why the time is low. >
+pos Precision: 0.762886597938
+pos Recall: 0.704761904762
+pos F-measure: 0.732673267327
+neg Precision: 0.737288135593
+neg Recall: 0.790909090909
+neg F-measure: 0.763157894737
+Time : 79.1391949654 seconds!
+
+Thoughts : I guess this is a tad important. More so than the line_position at least. I average out at 75-76% here. 
+
+-----------------------------------------------------------------------
+
+7.  With :
+ 	'Standard deviation'
+ 	'frequency'
+  'line_position'
+  'parabolic_position'
+  'part_of_speech'
+  'nth position_list'
+without  : 'length'
+
+TRIAL 1: 
+pos Precision: 0.726495726496
+pos Recall: 0.809523809524
+pos F-measure: 0.765765765766
+neg Precision: 0.795918367347
+neg Recall: 0.709090909091
+neg F-measure: 0.75
+Time : 83.4599750042 seconds!
+
+TRIAL 2: 
+pos Precision: 0.760563380282
+pos Recall: 0.771428571429
+pos F-measure: 0.765957446809
+neg Precision: 0.778801843318
+neg Recall: 0.768181818182
+neg F-measure: 0.773455377574
+Time : 91.6593949795 seconds!
+
+TRIAL 3 :
+pos Precision: 0.739534883721
+pos Recall: 0.757142857143
+pos F-measure: 0.748235294118
+neg Precision: 0.762790697674
+neg Recall: 0.745454545455
+neg F-measure: 0.754022988506
+Time : 82.3622310162 seconds!
+
+TRIAL 4:
+pos Precision: 0.74672489083
+pos Recall: 0.814285714286
+pos F-measure: 0.779043280182
+neg Precision: 0.805970149254
+neg Recall: 0.736363636364
+neg F-measure: 0.769596199525
+Time : 77.6708469391 seconds!
+
+
+Thoughts : determining length actually doesn't help too much. But it's probably because of the nature of candidate words selected is mostly 2 words, so len is like most of the time. But, I'll keep it around just in case. Goes to show how good that candidate algorithm is ;)
+
+-----------------------------------------------------------------------
+
+8. With :
+ 	'Standard deviation'
+  'length'
+  'line_position'
+  'parabolic_position'
+  'part_of_speech'
+  'nth position_list'
+without: 
+	'frequency'
+
+TRIAL 1:
+pos Precision: 0.75
+pos Recall: 0.785714285714
+pos F-measure: 0.767441860465
+neg Precision: 0.785714285714
+neg Recall: 0.75
+neg F-measure: 0.767441860465
+Time : 90.9542958736 seconds!
+
+TRIAL 2:
+pos Precision: 0.762626262626
+pos Recall: 0.719047619048
+pos F-measure: 0.740196078431
+neg Precision: 0.745689655172
+neg Recall: 0.786363636364
+neg F-measure: 0.765486725664
+Time : 91.086616993 seconds!
+
+TRIAL 3:
+pos Precision: 0.8
+pos Recall: 0.761904761905
+pos F-measure: 0.780487804878
+neg Precision: 0.782608695652
+neg Recall: 0.818181818182
+neg F-measure: 0.8
+Time :84.9144198895 seconds!
+
+TRIAL 4:
+pos Precision: 0.766816143498
+pos Recall: 0.814285714286
+pos F-measure: 0.789838337182
+neg Precision: 0.811594202899
+neg Recall: 0.763636363636
+neg F-measure: 0.786885245902
+Time :91.3590970039 seconds!
+
+TRIAL 5:
+pos Precision: 0.747619047619
+pos Recall: 0.747619047619
+pos F-measure: 0.747619047619
+neg Precision: 0.759090909091
+neg Recall: 0.759090909091
+neg F-measure: 0.759090909091
+Time : 88.8343501091 seconds!
+
+TRIAL 6:
+pos Precision: 0.752212389381
+pos Recall: 0.809523809524
+pos F-measure: 0.779816513761
+neg Precision: 0.803921568627
+neg Recall: 0.745454545455
+neg F-measure: 0.77358490566
+Time :88.8412890434 seconds!
+
+Thoughts : I think this is the least important feature. Probably because we have that position_list super features! 
+I'll try modifying TF to TF-IDF and see how it goes.
+

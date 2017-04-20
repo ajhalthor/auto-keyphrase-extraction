@@ -1,5 +1,17 @@
-#supervised_4b.py
+"""
+Determine the Keywords of a document
+Author : Ajay Halthor
+
+"""
+
 from keywords import extract_candidate_keywords
+from nltk.classify.scikitlearn import SklearnClassifier
+from nltk.metrics.scores import accuracy, precision, recall, f_measure
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC,LinearSVC
+from random import shuffle
+
+import collections
 import os
 import re
 import nltk
@@ -44,7 +56,6 @@ def get_features(document,candidate,candidate_list, isKeyword):
 	features['line_position'] = y
 
 	#Feature: Try the same approximation with parabola
-
 	if len(position_list):
 		y = 0
 		for pos in position_list:
@@ -58,8 +69,7 @@ def get_features(document,candidate,candidate_list, isKeyword):
 	features['parabolic_position'] = y
 
 
-
-	#Standard deviation
+	#Feature: Standard deviation
 	if len(position_list):
 		avg_position = sum([pos*float(len(document)) for pos in position_list])/float(len(position_list))
 		ss = 0.0
@@ -70,7 +80,7 @@ def get_features(document,candidate,candidate_list, isKeyword):
 		features['Standard deviation'] = ss/float(len(document))
 
 
-
+	#Feature: Text Frequency
 	features['frequency'] = len(position_list)/ float(len(set(candidate_list))) #check
 
 
@@ -79,25 +89,22 @@ def get_features(document,candidate,candidate_list, isKeyword):
 	return features
 
 
-####################################################################################################
-############ Performance decreases when co-occurrence is a feature
+# Determine Precision, Recall & F-Measure
+def accuracy_measure(classifier,cross_valid_set):
+	refsets = collections.defaultdict(set)
+	testsets = collections.defaultdict(set)
 
-# def get_co_occurrence(w1,candidate_list):
+	for i, (feats, label) in enumerate(cross_valid_set):
+	    refsets[label].add(i)
+	    observed = classifier.classify(feats)
+	    testsets[observed].add(i)
 
-# 	score = 0
-# 	w1_pos = [m.start() for m in re.finditer(re.escape(w1),document,flags=re.IGNORECASE)] 
-# 	for w2 in candidate_list:
-# 		w2_pos = [m.start() for m in re.finditer(re.escape(w2),document,flags=re.IGNORECASE)] 
-		
-
-# 		for w1_pos_ele in w1_pos:
-# 			for w2_pos_ele in w2_pos:
-# 				if abs(w1_pos_ele - w2_pos_ele) in range(2,11):
-# 					score += 1
-
-# 	return score
-
-####################################################################################################
+	print 'pos Precision:', precision(refsets[1], testsets[1])
+	print 'pos Recall:', recall(refsets[1], testsets[1])
+	print 'pos F-measure:', f_measure(refsets[1], testsets[1])
+	print 'neg Precision:', precision(refsets[0], testsets[0])
+	print 'neg Recall:', recall(refsets[0], testsets[0])
+	print 'neg F-measure:', f_measure(refsets[0], testsets[0])
 
 
 
@@ -131,9 +138,7 @@ for doc in os.listdir(doc_path):
 				keywords = unicode(keywords + team + '/' + doc_name + '.key',errors='replace')
 
 				#Take list of Keywords 
-				keyword_list.extend([line.split(':')[1].lower().strip() for line in keywords.splitlines() if ':' in line ])
-				#print team,' - ',keyword_list #Do something about special chars
-				
+				keyword_list.extend([line.split(':')[1].lower().strip() for line in keywords.splitlines() if ':' in line ])				
 
 		feature_list.extend([ (get_features(document,key,candidates,1),1) for key in set(keyword_list)])
 		feature_list.extend([ (get_features(document,key,candidates,0),0) for key in candidates if key not in set(keyword_list)])
@@ -142,13 +147,12 @@ for doc in os.listdir(doc_path):
 
 end_time = time.time()
 
-from random import shuffle
 shuffle(feature_list)
 
 good_list_train = [(x,y) for x,y in feature_list if y == 1][:500]
 good_list_test = [(x,y) for x,y in feature_list if y == 1][500:]
-bad_list_train = [(x,y) for x,y in feature_list if y == 0][0:500]
-bad_list_test = [(x,y) for x,y in feature_list if y == 0][500:720]
+bad_list_train = [(x,y) for x,y in feature_list if y == 0][:500]
+bad_list_test = [(x,y) for x,y in feature_list if y == 0][500:]
 
 shuffle(good_list_train)
 shuffle(bad_list_train)
@@ -158,48 +162,22 @@ shuffle(bad_list_test)
 print 'number of keywords', len([x for x,y in feature_list if y == 1])
 print 'number of non keywords', len([x for x,y in feature_list if y == 0])
 
-
-#training_set = feature_list[:18000]
 training_set = []
 training_set.extend(good_list_train)
 training_set.extend(bad_list_train)
 print 'all indicies of keywords training', len([x for x,y in training_set if y == 1])
-#testing_set = feature_list[18000:]
+
 testing_set = []
 testing_set.extend(good_list_test)
 testing_set.extend(bad_list_test)
 print 'all indicies of keywords testing', len([x for x,y in testing_set if y == 1])
-
-from nltk.classify.scikitlearn import SklearnClassifier
-from sklearn.naive_bayes import MultinomialNB, BernoulliNB, GaussianNB
-from sklearn.linear_model import LogisticRegression,SGDClassifier
-from sklearn.svm import SVC,LinearSVC,NuSVC
-
-import collections
-from nltk.metrics.scores import accuracy, precision, recall, f_measure
-
-def accuracy_measure(classifier,cross_valid_set):
-	refsets = collections.defaultdict(set)
-	testsets = collections.defaultdict(set)
-
-	for i, (feats, label) in enumerate(cross_valid_set):
-	    refsets[label].add(i)
-	    observed = classifier.classify(feats)
-	    testsets[observed].add(i)
-
-	print 'pos Precision:', precision(refsets[1], testsets[1])
-	print 'pos Recall:', recall(refsets[1], testsets[1])
-	print 'pos F-measure:', f_measure(refsets[1], testsets[1])
-	print 'neg Precision:', precision(refsets[0], testsets[0])
-	print 'neg Recall:', recall(refsets[0], testsets[0])
-	print 'neg F-measure:', f_measure(refsets[0], testsets[0])
-
 
 #Logistic Regression 
 LogisticRegression_classifier =  SklearnClassifier(LogisticRegression()).train(training_set)
 print ("LogisticRegression_classifier algorithm accuracy : ",nltk.classify.accuracy(LogisticRegression_classifier,testing_set) * 100)
 accuracy_measure(LogisticRegression_classifier,testing_set)
 
+#SVM
 LinearSVC_classifier =  SklearnClassifier(LinearSVC()).train(training_set)
 print ("LinearSVC_classifier algorithm accuracy : ",nltk.classify.accuracy(LinearSVC_classifier,testing_set) * 100)
 accuracy_measure(LinearSVC_classifier,testing_set)
