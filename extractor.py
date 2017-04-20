@@ -40,12 +40,12 @@ def get_features(document,candidate,candidate_list, isKeyword):
     if len(position_list):
         y = 0
         for pos in position_list:
-                #x = document.index(candidate)
-                x = pos*N
-                if x >= float(N)/2:
-                    y += 2/float(N) * x - 1
-                else : 
-                    y += -2/float(N) * x + 1
+            #x = document.index(candidate)
+            x = pos*N
+            if x >= float(N)/2:
+                y += 2/float(N) * x - 1
+            else : 
+                y += -2/float(N) * x + 1
 
         y /= len(position_list)
     else:
